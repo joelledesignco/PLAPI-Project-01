@@ -2,7 +2,7 @@
 require_once("conn.php");
 
 function __($input){
-    return htmlspecialchars($input, ENT_QUOTES);
+  return htmlspecialchars($input, ENT_QUOTES);
 }
 ?>
 
@@ -13,19 +13,20 @@ function __($input){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/6168440589.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/styles.css"></link>
+    <link rel="stylesheet" href="/assets/css/styles.css"></link>
     
     <title>Project 1: Cars in Stock Checker</title>
   </head>
   <body>
   
+  <section id="hero-banner">
     <div class="container py-5">
-      <h3>Cars</h3>
-      <hr>
+      <h3>Cool Cars</h3>
+      <div class="hr mx-auto"></div>
 
-      <div class="row">
-        <div class="col-12">
-          <form class="input-group" id="search-form">
+      <div class="row" id="cool-cars">
+        <div class="col-12 blurry-bg p-5">
+          <form class="input-group pb-3" id="search-form">
             <div class="input-group-prepend">
               <select class="custom-select"  id="year-select">
                 <option selected value="0">Year</option>
@@ -46,37 +47,43 @@ function __($input){
               </button>
             </div>
           </form>
+
+          <table class="table">
+              <thead>
+                  <th>Make</th>
+                  <th>Model</th>
+                  <th>Year</th>
+                  <th>Nickname</th>
+              </thead>
+              <tbody id="search-results"></tbody>
+              <tfoot>
+                  <th><input type="text" id="add-make" class="form-control" placeholder="Make"></th>
+                  <th><input type="text" id="add-model" class="form-control" placeholder="Model"></th>
+                  <th><input type="text" id="add-year" class="form-control" placeholder="Year"></th>
+                  <th><input type="text" id="add-nickname" class="form-control" placeholder="Nickname"></th>
+                  <th><button class="btn btn-primary" data-action="add"><i class="fas fa-plus"></i></button></th>
+              </tfoot>
+          </table>
+        </div>
+
+        <div class="modal fade" id="deleteCarAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                Are you sure you want to delete this car?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-action="confirm-delete">Delete</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <table class="table">
-          <thead>
-              <th>Make</th>
-              <th>Model</th>
-              <th>Year</th>
-              <th>Nickname</th>
-          </thead>
-          <tbody id="search-results">
-
-          <?php
-
-          $sql = "SELECT * FROM cars";
-          $results = $db->query($sql);
-
-          while($row = $results->fetch_assoc()){
-              echo "<tr>";
-                  echo "<td>" . __($row["make"]) . "</td>";
-                  echo "<td>" . __($row["model"]) . "</td>";
-                  echo "<td>" . __($row["year"]) . "</td>";
-                  echo "<td>" . __($row["nickname"]) . "</td>";
-              echo "</tr>";
-          }
-          
-          ?>
-
-          </tbody>
-      </table>
     </div>
+  </section>
+
+  <a href="#"><div class="backtop"><i class="fas fa-chevron-up"></i></div></a>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
